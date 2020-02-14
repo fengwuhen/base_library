@@ -1,5 +1,6 @@
 library base_library;
 
+export 'src/base_response.dart';
 export 'src/date_util.dart';
 export 'src/dio_util.dart';
 export 'src/log_util.dart';
