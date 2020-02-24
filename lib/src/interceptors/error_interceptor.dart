@@ -46,6 +46,18 @@ class ErrorInterceptors extends InterceptorsWrapper {
         _msg = response.data[_msgKey];
         return BaseResponse(
             status: _status, code: _code, msg: _msg, response: response);
+      } else {
+        Map<String, dynamic> _dataMap = _decodeData(response);
+        _status = (_dataMap[_statusKey] is int)
+            ? _dataMap[_statusKey].toString()
+            : _dataMap[_statusKey];
+        _code = (_dataMap[_codeKey] is String)
+            ? int.tryParse(_dataMap[_codeKey])
+            : _dataMap[_codeKey];
+        _msg = _dataMap[_msgKey];
+
+        return BaseResponse(
+            status: _status, code: _code, msg: _msg, response: response);
       }
     }
     return response;
@@ -86,5 +98,14 @@ class ErrorInterceptors extends InterceptorsWrapper {
       }
     }
     return errorText;
+  }
+
+  Map<String, dynamic> _decodeData(Response response) {
+    if (response == null ||
+        response.data == null ||
+        response.data.toString().isEmpty) {
+      return Map();
+    }
+    return json.decode(response.data.toString());
   }
 }
