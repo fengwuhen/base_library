@@ -314,10 +314,10 @@ class DioUtil {
           _getRequestData(response.request) +
           '\n[resdata]:  ' +
           response.data.toString();
-      LogUtil.getInstance().d(log);
+      // LogUtil.getInstance().d(log);
     } catch (ex) {
       String log = '---------------Http Error---------------' + ex.toString();
-      LogUtil.getInstance().d(log);
+      // LogUtil.getInstance().d(log);
     }
   }
 
