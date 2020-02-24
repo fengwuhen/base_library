@@ -11,11 +11,11 @@ Dio _dio = Dio();
 Dio get dio => _dio;
 
 class DioManager {
-  static Future init() async {
-    dio.options.baseUrl = 'https://www.wanandroid.com/';
-    dio.options.connectTimeout = 30 * 1000;
-    dio.options.sendTimeout = 30 * 1000;
-    dio.options.receiveTimeout = 30 * 1000;
+  static Future init({String baseUrl, int time = 30 * 1000}) async {
+    dio.options.baseUrl = baseUrl;
+    dio.options.connectTimeout = time;
+    dio.options.sendTimeout = time;
+    dio.options.receiveTimeout = time;
     dio.options.contentType = Headers.formUrlEncodedContentType;
 
     (_dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate =
