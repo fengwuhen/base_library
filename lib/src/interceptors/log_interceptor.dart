@@ -1,5 +1,6 @@
-import 'package:base_library/base_library.dart';
 import 'package:dio/dio.dart';
+
+import '../log_util.dart';
 
 /// 请求日志拦截器
 class LogInterceptors extends InterceptorsWrapper {
