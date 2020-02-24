@@ -10,6 +10,7 @@ class ErrorInterceptors extends InterceptorsWrapper {
   String _statusKey = "status";
   String _codeKey = "errorCode";
   String _msgKey = "errorMsg";
+  String _dataKey = 'data';
 
   @override
   Future onRequest(RequestOptions options) async {
@@ -28,6 +29,7 @@ class ErrorInterceptors extends InterceptorsWrapper {
     String _status;
     int _code;
     String _msg;
+    String _data;
     if (response.statusCode == HttpStatus.ok ||
         response.statusCode == HttpStatus.created) {
       var data = response.data;
@@ -36,7 +38,7 @@ class ErrorInterceptors extends InterceptorsWrapper {
         data = json.decode(data);
       }
 
-      if (data is Map) {
+      if (response.data is Map) {
         _status = (response.data[_statusKey] is int)
             ? response.data[_statusKey].toString()
             : response.data[_statusKey];
@@ -44,8 +46,7 @@ class ErrorInterceptors extends InterceptorsWrapper {
             ? int.tryParse(response.data[_codeKey])
             : response.data[_codeKey];
         _msg = response.data[_msgKey];
-        return BaseResponse(
-            status: _status, code: _code, msg: _msg, response: response);
+        _data = response.data[_dataKey];
       } else {
         Map<String, dynamic> _dataMap = _decodeData(response);
         _status = (_dataMap[_statusKey] is int)
@@ -55,10 +56,14 @@ class ErrorInterceptors extends InterceptorsWrapper {
             ? int.tryParse(_dataMap[_codeKey])
             : _dataMap[_codeKey];
         _msg = _dataMap[_msgKey];
-
-        return BaseResponse(
-            status: _status, code: _code, msg: _msg, response: response);
+        _data = _dataMap[_dataKey];
       }
+      return BaseResponse(
+          status: _status,
+          code: _code,
+          data: _data,
+          msg: _msg,
+          response: response);
     }
     return response;
   }
