@@ -1,10 +1,16 @@
+import 'dart:convert';
 import 'dart:io';
 
+import 'package:base_library/index.dart';
 import 'package:dio/dio.dart';
 
 import '../toast_util.dart';
 
 class ErrorInterceptors extends InterceptorsWrapper {
+  String _statusKey = "status";
+  String _codeKey = "errorCode";
+  String _msgKey = "errorMsg";
+
   @override
   Future onRequest(RequestOptions options) async {
     return options;
@@ -19,6 +25,30 @@ class ErrorInterceptors extends InterceptorsWrapper {
 
   @override
   Future onResponse(Response response) async {
+    String _status;
+    int _code;
+    String _msg;
+    if (response == null ||
+        response.data == null ||
+        response.data.toString().isEmpty) {
+      var data = response.data;
+
+      if (data is String) {
+        data = json.decode(data);
+      }
+
+      if (data is Map) {
+        _status = (response.data[_statusKey] is int)
+            ? response.data[_statusKey].toString()
+            : response.data[_statusKey];
+        _code = (response.data[_codeKey] is String)
+            ? int.tryParse(response.data[_codeKey])
+            : response.data[_codeKey];
+        _msg = response.data[_msgKey];
+        return BaseResponse(
+            status: _status, code: _code, msg: _msg, response: response);
+      }
+    }
     return response;
   }
 
