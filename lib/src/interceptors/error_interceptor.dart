@@ -28,9 +28,8 @@ class ErrorInterceptors extends InterceptorsWrapper {
     String _status;
     int _code;
     String _msg;
-    if (response == null ||
-        response.data == null ||
-        response.data.toString().isEmpty) {
+    if (response.statusCode == HttpStatus.ok ||
+        response.statusCode == HttpStatus.created) {
       var data = response.data;
 
       if (data is String) {
