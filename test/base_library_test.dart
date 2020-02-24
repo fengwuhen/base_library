@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:base_library/base_library.dart';
+import 'package:base_library/index.dart';
 
 void main() async {
   DioUtil.openDebug();
@@ -21,9 +21,9 @@ void main() async {
   });
 
   test('dio manager', () async {
-    ToastUtil.show('message');
-    // await dio.get('banner/json1').then((response) {
-    //   LogUtil.writeLog(response.data.toString());
-    // });
+    // ToastUtil.show('message');
+    await dio.get('banner/json1').then((response) {
+      LogUtil.writeLog(response.data.toString());
+    });
   });
 }
