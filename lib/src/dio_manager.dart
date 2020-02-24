@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
 
-import 'interceptors/error_interceptor.dart';
 import 'interceptors/log_interceptor.dart';
 
 Dio _dio = Dio();
@@ -27,6 +26,6 @@ class DioManager {
     };
 
     dio.interceptors.add(LogInterceptors());
-    dio.interceptors.add(ErrorInterceptors());
+    // dio.interceptors.add(ErrorInterceptors());
   }
 }

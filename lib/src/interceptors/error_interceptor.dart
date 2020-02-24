@@ -7,9 +7,9 @@ import 'package:dio/dio.dart';
 import '../toast_util.dart';
 
 class ErrorInterceptors extends InterceptorsWrapper {
-  String _statusKey = "status";
-  String _codeKey = "errorCode";
-  String _msgKey = "errorMsg";
+  String _statusKey = 'status';
+  String _codeKey = 'errorCode';
+  String _msgKey = 'errorMsg';
   String _dataKey = 'data';
 
   @override
