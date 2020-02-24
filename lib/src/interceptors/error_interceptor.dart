@@ -46,7 +46,7 @@ class ErrorInterceptors extends InterceptorsWrapper {
             ? int.tryParse(response.data[_codeKey])
             : response.data[_codeKey];
         _msg = response.data[_msgKey];
-        _data = response.data[_dataKey];
+        _data = response.data[_dataKey].toString();
       } else {
         Map<String, dynamic> _dataMap = _decodeData(response);
         _status = (_dataMap[_statusKey] is int)
@@ -56,7 +56,7 @@ class ErrorInterceptors extends InterceptorsWrapper {
             ? int.tryParse(_dataMap[_codeKey])
             : _dataMap[_codeKey];
         _msg = _dataMap[_msgKey];
-        _data = _dataMap[_dataKey];
+        _data = _dataMap[_dataKey].toString();
       }
       return BaseResponse(
           status: _status,
