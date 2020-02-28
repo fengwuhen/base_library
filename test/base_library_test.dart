@@ -26,4 +26,21 @@ void main() async {
       LogUtil.writeLog(response.data.toString());
     });
   });
+
+  test('dart map', () async {
+    add({int x, int y = 1, int z = 2}) {
+      return x + y + z;
+    }
+
+    var gifts = {
+      'first': 'partridge',
+      'sencond': 'turtledoves',
+      'fifth': 'golden rings'
+    };
+
+    print(gifts['first']);
+
+    int result = add(x: 10);
+    print(result);
+  });
 }
